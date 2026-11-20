@@ -3,15 +3,6 @@
 #include "animation.h"
 #include "backend.h"
 
-struct animation {
-    image_t **frames;   
-    int frame_count;    
-    int speed;          
-    int looping;        
-    int current_frame;  
-    int tick;           
-};
-
 animation_t* create_animation(image_t **frames, int frame_count, int speed, int looping) {
     if (!frames || frame_count <= 0)
         return NULL;

@@ -3,6 +3,15 @@
 
 #include "image.h"
 
+struct animation {
+    image_t **frames;   
+    int frame_count;    
+    int speed;          
+    int looping;        
+    int current_frame;  
+    int tick;           
+};
+
 typedef struct animation animation_t;
 
 animation_t* create_animation(image_t **frames, int frame_count, int speed, int looping);
