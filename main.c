@@ -19,8 +19,10 @@ int main(int argc, char *argv[]) {
     image_t* s3 = load_image("images/s3.png");
     image_t* s4 = load_image("images/s4.png");
     animation_t* anim = create_animation((image_t*[]){s1, s2}, 2, 10, 1);
-    sprite_t* spr3 = add_sprite(s3, -100, 200, 1);
-    sprite_t* spr4 = add_sprite(s4, 850, 200, 0);
+    animation_t* anim2 = create_animation((image_t*[]){s3, s4}, 2, 10, 1);
+    animation_t* anim3 = create_animation((image_t*[]){s4, s3}, 2, 10, 1);
+    sprite_t* spr3 = add_sprite(anim2, -100, 200, 1);
+    sprite_t* spr4 = add_sprite(anim3, 850, 200, 0);
     set_screen(screen, screen_cols, screen_rows);
     int move_x1 = 3; // скорость движения спрайта 1
     int move_x2 = -3; // скорость движения спрайта 2
@@ -32,7 +34,6 @@ int main(int argc, char *argv[]) {
         if (spr4->x < -100)
             move_sprite(spr4, 850, spr4->y);  
         draw_screen();
-        draw_sprites();
         draw_animation(anim, 100, 50);
         update_window();
         update_animation(anim);
