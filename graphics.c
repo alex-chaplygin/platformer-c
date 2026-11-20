@@ -55,9 +55,9 @@ void set_screen(int **screen, int cols, int rows) {
 }
 
 /**
- * @brief Отрисовывает текущий экран, используя атлас и размеры тайлов.
+ * @brief Отрисовывает фон
  */
-void draw_screen() {
+void draw_tile() {
     if (!atlas || !screen_map)
         return;
     for (int row = 0; row < screen_rows; row++) {
@@ -71,17 +71,25 @@ void draw_screen() {
 }
 
 /**
+ * @brief Отрисовывает фон и спрайты.
+ */
+void draw_screen() {
+    draw_tile();
+    draw_sprites();
+}
+
+/**
  * @brief Cоздает и добавляет спрайт в список спрайтов, 
  * упорядоченный по координате z.
- * @param im Указатель на изображение спрайта.
+ * @param anim Указатель на анимацию спрайта.
  * @param x Координата x спрайта.
  * @param y Координата y спрайта.
  * @param z Координата z спрайта для определения порядка отрисовки).
  * @return Указатель на добавленный спрайт.
  */
-sprite_t *add_sprite(image_t *im, int x, int y, int z) {
+sprite_t *add_sprite(animation_t *anim, int x, int y, int z) {
     sprite_t *s = malloc(sizeof(sprite_t));
-    s->im = im;
+    s->anim = anim;
     s->x = x;
     s->y = y;
     s->z = z;
@@ -135,6 +143,8 @@ void remove_sprite(sprite_t *s) {
  * @brief Отрисовывает все спрайты в списке спрайтов.
  */
 void draw_sprites() {
-    for (sprite_t *s = first_sprite; s; s = s->next)
-        draw_image(s->im, s->x, s->y);
+    for (sprite_t *s = first_sprite; s; s = s->next) {
+        draw_animation(s->anim, s->x, s->y);
+        update_animation(s->anim);
+	}
 }
