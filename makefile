@@ -1,6 +1,12 @@
-SRC=main.o graphics.o image.o backend.o animation.o
+OBJS=main.o graphics.o image.o backend.o animation.o
 LDFLAGS=-lSDL2 -lSDL2_image
 CFLAGS=-g
+TARGET = platformer
 
-/tmp/platformer: $(SRC)
+$(TARGET): $(OBJS)
 	gcc $^ -o $@ $(LDFLAGS)
+
+.PHONY: clean
+
+clean:
+	rm -f $(DESTDIR)$(OBJS) $(DESTDIR)$(TARGET)
