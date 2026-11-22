@@ -2,10 +2,11 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "backend.h"
-#define DELAY 16 // задержка в миллисекундах для обновления окна (примерно 60 FPS)
 
 static SDL_Window   *window   = NULL; // указатель на окно
 static SDL_Renderer *renderer = NULL; // указатель на рендерер
+static Uint32 frame_delay = 1000 / 60; // задержка в миллисекундах для обновления окна 
+static Uint32 last_frame_time = 0; // ремя с начала последнего кадра
 static int quit_flag = 0; // флаг выхода из программы
 
 /**
@@ -27,6 +28,7 @@ void create_window(int width, int height) {
         SDL_DestroyWindow(window);
         return;
     }
+    last_frame_time = SDL_GetTicks();
 }
  
 /**
@@ -37,6 +39,16 @@ void destroy_window() {
     SDL_DestroyWindow(window);
     IMG_Quit();
     SDL_Quit();
+}
+
+/**
+ * @brief Задаёт fps игры.
+ * @param fps Fps, который задаёт пользователь.
+ */
+void set_fps(int fps) {
+    if (fps <= 0) 
+        fps = 60;
+    frame_delay = 1000 / fps;
 }
 
 /**
@@ -110,6 +122,15 @@ void update_window() {
         if (event.type == SDL_QUIT)
             quit_flag = 1;
     }
+
     SDL_RenderPresent(renderer);
-    SDL_Delay(DELAY); 
+
+    if (frame_delay > 0) {
+        Uint32 current_time = SDL_GetTicks();
+        Uint32 elapsed = current_time - last_frame_time;
+        if (elapsed < frame_delay) {
+            SDL_Delay(frame_delay - elapsed);
+        }
+    }
+    last_frame_time = SDL_GetTicks();
 }

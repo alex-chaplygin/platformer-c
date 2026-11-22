@@ -4,6 +4,7 @@
 #include "animation.h"
 int main(int argc, char *argv[]) {
     create_window(800, 600);
+    set_fps(60);
     set_tiles(32, 32, "images/atlas.png");
     int screen_cols = 25;
     int screen_rows = 19;
@@ -25,6 +26,11 @@ int main(int argc, char *argv[]) {
     int move_x1 = 3; // скорость движения спрайта 1
     int move_x2 = -3; // скорость движения спрайта 2
     while (!is_quit()) {
+        // Изменение настроек fps
+        if (key_pressed("1")) set_fps(10);
+        if (key_pressed("2")) set_fps(60);
+        if (key_pressed("3")) set_fps(144);
+
         move_sprite(spr3, spr3->x + move_x1, spr3->y);
         move_sprite(spr4, spr4->x + move_x2, spr4->y);
         if (spr3->x > 800)
