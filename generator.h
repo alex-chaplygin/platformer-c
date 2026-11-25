@@ -1,0 +1,1 @@
+void map_fill_tiles(int **map, int width, int height, int x, int y, int fill_width, int fill_height, int tile);
