@@ -70,21 +70,13 @@ void draw_screen() {
     }
 }
 
-/**
- * @brief Cоздает и добавляет спрайт в список спрайтов, 
- * упорядоченный по координате z.
- * @param im Указатель на изображение спрайта.
- * @param x Координата x спрайта.
- * @param y Координата y спрайта.
- * @param z Координата z спрайта для определения порядка отрисовки).
- * @return Указатель на добавленный спрайт.
+/** 
+ * Добавить спрайт в список
+ *
+ * @param s спрайт
  */
-sprite_t *add_sprite(image_t *im, int x, int y, int z) {
-    sprite_t *s = malloc(sizeof(sprite_t));
-    s->im = im;
-    s->x = x;
-    s->y = y;
-    s->z = z;
+void add_sprite_to_list(sprite_t *s, int z)
+{
     sprite_t *before = NULL;          
     sprite_t *after = first_sprite;   
     while (after && after->z <= z) {
@@ -98,7 +90,48 @@ sprite_t *add_sprite(image_t *im, int x, int y, int z) {
     else
         first_sprite = s;       
     if (after)
-        after->prev = s;
+        after->prev = s;    
+}
+
+/**
+ * @brief Cоздает и добавляет спрайт в список спрайтов, 
+ * упорядоченный по координате z.
+ * @param im Указатель на изображение спрайта.
+ * @param x Координата x спрайта.
+ * @param y Координата y спрайта.
+ * @param z Координата z спрайта для определения порядка отрисовки).
+ * @return Указатель на добавленный спрайт.
+ */
+sprite_t *add_sprite(image_t *im, int x, int y, int z)
+{
+    sprite_t *s = malloc(sizeof(sprite_t));
+    s->type = SPRITE;
+    s->im = im;
+    s->x = x;
+    s->y = y;
+    s->z = z;
+    add_sprite_to_list(s, z);
+    return s;
+}
+
+/**
+ * @brief Cоздает и добавляет спрайт в список спрайтов, 
+ * упорядоченный по координате z.
+ * @param im Указатель на изображение спрайта.
+ * @param x Координата x спрайта.
+ * @param y Координата y спрайта.
+ * @param z Координата z спрайта для определения порядка отрисовки).
+ * @return Указатель на добавленный спрайт.
+ */
+sprite_t *add_animation(animation_t *a, int x, int y, int z)
+{
+    sprite_t *s = malloc(sizeof(sprite_t));
+    s->type = ANIMATION;
+    s->anim = a;
+    s->x = x;
+    s->y = y;
+    s->z = z;
+    add_sprite_to_list(s, z);
     return s;
 }
 
