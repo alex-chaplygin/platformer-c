@@ -1,4 +1,4 @@
-ENGINE=engine/graphics.o engine/image.o engine/backend.o engine/animation.o
+ENGINE=engine/graphics.o engine/image.o engine/backend.o engine/animation.o engine/vec3.o engine/world.o
 SRC=$(ENGINE) generator.o main.o
 LDFLAGS=-lSDL2 -lSDL2_image
 CFLAGS=-g
