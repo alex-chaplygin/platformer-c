@@ -50,6 +50,12 @@ SCREEN_ROWS - число строк на экране
 * Загружает изображения
 * Выводит изображения полностью и частично
 * Обновляет окно - вывод графики из буфера
+* Не сделано: масштабирование экрана
+* Задание области отсечения, x, y - координаты левого верхнего угла области отсечения, width, height - размеры области отсечения
+::
+
+   void set_clip(int x, int y, int width, int height);
+   
 
 Постоянная частота кадров
 -------------------------
@@ -85,6 +91,10 @@ SCREEN_ROWS - число строк на экране
 * Выводит спрайты.
 * Выводит анимацию спрайтов.
 * Позволяет выводить спрайты по слоям (z координаты).
+::
+
+   void pause_animation(animation_t *anim);
+   void resume_animation(animation_t *anim);
 
 Модуль audio
 ------------
@@ -150,12 +160,13 @@ SCREEN_ROWS - число строк на экране
 ----------------------------------
 
 Для текущего окна можно добавить элементы графического интерфейса. Пользователь может создавать свои элементы интерфейса.
+::
 
-struct gui_element_t {
+   struct gui_element_t {
 	sprite_t *sprite; // изображение элемента
 	gui_elements_list_t *children; // список дочерних элементов
-}
+   }
 
-gui_element_t *create_gui_element(image_t *im, int x, int y, int z);
+   gui_element_t *create_gui_element(image_t *im, int x, int y, int z);
 
-void gui_add_child(gui_element_t *elem, gui_element_t *child);
+   void gui_add_child(gui_element_t *elem, gui_element_t *child);

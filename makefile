@@ -1,4 +1,5 @@
-SRC=main.o graphics.o image.o backend.o animation.o generator.o
+ENGINE=engine/graphics.o engine/image.o engine/backend.o engine/animation.o
+SRC=$(ENGINE) generator.o main.o
 LDFLAGS=-lSDL2 -lSDL2_image
 CFLAGS=-g
 

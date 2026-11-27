@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include "backend.h"
-#include "graphics.h"
-#include "animation.h"
+#include "engine/backend.h"
+#include "engine/graphics.h"
+#include "engine/animation.h"
 #include "generator.h"
 #define TILE_SIZE 32 
 
